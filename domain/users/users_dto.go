@@ -3,7 +3,7 @@ package users
 import (
 	"strings"
 
-	"github.com/shakilbd009/go-users-api/utils/errors"
+	"github.com/shakilbd009/go-utils-lib/rest_errors"
 )
 
 const (
@@ -23,14 +23,15 @@ type (
 	Users []User
 )
 
-func (user *User) Validate() *errors.RestErr {
+func (user *User) Validate() *rest_errors.RestErr {
+
 	user.Email = strings.TrimSpace(strings.ToLower(user.Email))
 	if user.Email == "" {
-		return errors.NewBadRequestError("invalid email address")
+		return rest_errors.NewBadRequestError("invalid email address")
 	}
 	user.Password = strings.TrimSpace(user.Password)
 	if user.Password == "" {
-		return errors.NewBadRequestError("invalid password")
+		return rest_errors.NewBadRequestError("invalid password")
 	}
 	return nil
 }
