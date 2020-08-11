@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/shakilbd009/go-users-api/datasourses/mysql/users_db"
-	"github.com/shakilbd009/go-users-api/logger"
 	"github.com/shakilbd009/go-users-api/utils/mysql_utils"
+	"github.com/shakilbd009/go-utils-lib/logger"
 	"github.com/shakilbd009/go-utils-lib/rest_errors"
 )
 
@@ -19,7 +19,7 @@ const (
 	queryFindByEmailAndPassword = "SELECT id,first_name,last_name,email,date_created,status FROM users WHERE email=? AND password=? AND status=?;"
 )
 
-func (user *User) Get() *rest_errors.RestErr {
+func (user *User) Get() rest_errors.RestErr {
 
 	stmt, err := users_db.Client.Prepare(queryGetUser)
 	if err != nil {
@@ -35,7 +35,7 @@ func (user *User) Get() *rest_errors.RestErr {
 	return nil
 }
 
-func (user *User) Save() *rest_errors.RestErr {
+func (user *User) Save() rest_errors.RestErr {
 
 	stmt, err := users_db.Client.Prepare(queryInsertUser)
 	if err != nil {
@@ -57,7 +57,7 @@ func (user *User) Save() *rest_errors.RestErr {
 	return nil
 }
 
-func (user *User) Update() *rest_errors.RestErr {
+func (user *User) Update() rest_errors.RestErr {
 
 	stmt, err := users_db.Client.Prepare(queryUpdateUser)
 	if err != nil {
@@ -73,7 +73,7 @@ func (user *User) Update() *rest_errors.RestErr {
 	return nil
 }
 
-func (user *User) Delete() *rest_errors.RestErr {
+func (user *User) Delete() rest_errors.RestErr {
 
 	stmt, err := users_db.Client.Prepare(queryDeleteUser)
 	if err != nil {
@@ -88,7 +88,7 @@ func (user *User) Delete() *rest_errors.RestErr {
 	return nil
 }
 
-func (user *User) FindByStatus(status string) ([]User, *rest_errors.RestErr) {
+func (user *User) FindByStatus(status string) ([]User, rest_errors.RestErr) {
 
 	stmt, err := users_db.Client.Prepare(queryFindByStatus)
 	if err != nil {
@@ -117,7 +117,7 @@ func (user *User) FindByStatus(status string) ([]User, *rest_errors.RestErr) {
 	return results, nil
 }
 
-func (user *User) FindByEmailAndPassword() *rest_errors.RestErr {
+func (user *User) FindByEmailAndPassword() rest_errors.RestErr {
 
 	stmt, err := users_db.Client.Prepare(queryFindByEmailAndPassword)
 	if err != nil {
